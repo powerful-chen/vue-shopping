@@ -1,28 +1,73 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <mt-header fixed :title="$route.meta.title">
+    </mt-header>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
+    <tabbar></tabbar>
+    <mt-header fixed :title="$route.meta.title">
+    <span slot="left" @click="goBack" v-show="showBack">
+      <mt-button icon="back">返回</mt-button>
+    </span>
+  </mt-header>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import tabbar from './components/tabbar.vue'
 export default {
-  name: 'App',
+  data() {
+    return {
+      showBack: false
+    }
+  },
+  created () {
+    this.showBack = this.$route.path !== '/home'
+  },
+  watch: {
+    '$route.path' (newVal) {
+      this.showBack = newVal !== '/home'
+    }
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1)
+    },
+},
+
   components: {
-    HelloWorld
+    tabbar
   }
+  
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family:'Avenir',Helvetica,Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  box-sizing: border-box;
 }
+.container {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+}
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%)
+}
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+.fade-enter-active, .fade-leave-active {
+  transition:all .5s ease;
+}
+
 </style>
