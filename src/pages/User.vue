@@ -15,6 +15,26 @@
         </div>
       </div>
     </div>
+    <ul class="mui-table-view mui-table-view-chevron">
+      <li class="mui-table-view-cell mui-media">
+        <div class="mui-navigate-right">
+          <img class="mui-media-object mui-pull-left" src="../assets/images/avatar_default.png">
+          <div class="mui-media-body">我的订单</div>
+        </div>
+      </li>
+      <li class="mui-table-view-cell mui-media">
+        <div class="mui-navigate-right">
+          <img class="mui-media-object mui-pull-left" src="../assets/images/avatar_default.png">
+          <div class="mui-media-body">收货地址</div>
+        </div>
+      </li>
+      <li class="mui-table-view-cell mui-media">
+        <div @click="logout" class="mui-navigate-right">
+          <img class="mui-media-object mui-pull-left" src="../assets/images/avatar_default.png">
+          <div class="mui-media-body">退出登录</div>
+        </div>
+      </li>
+    </ul>
   </div>
   <!-- 未登录 -->
   <div v-else>
@@ -46,13 +66,29 @@ export default {
       username: state => state.user.username
     }),
     ...mapGetters('user', { isLogin: 'isLogin' })
+  },
+  methods: {
+    logout () {
+      this.$http.get('logout')
+      this.$store.commit('user/logout')
+      this.$auth.setAuthorization('')
+      this.$toast('退出成功')
+    }
   }
 }
 </script>
 
 
 编写CSS样式代码，示例代码如下。
-          <style lang="scss" scoped>
+<style lang="scss" scoped>
+.mui-table-view .mui-media,
+.mui-table-view .mui-media-body {
+  line-height: 42px;
+}
+.mui-table-view-cell:after {
+  left: 0px;
+}
+
 .member {
   margin-bottom: 15px;
 
