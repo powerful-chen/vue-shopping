@@ -24,6 +24,7 @@ export default {
   },
   created () {
     this.showBack = this.$route.path !== '/home'
+    this.checkLogin()
   },
   watch: {
     '$route.path' (newVal) {
@@ -34,6 +35,18 @@ export default {
     goBack() {
       this.$router.go(-1)
     },
+     checkLogin() {
+    this.$indicator.open({
+      text: '加载中'
+    })
+    this.$http.get('user').then(res => {
+      if (res.data.code === 1) {
+        this.$store.commit('user/setUser', res.data.data)
+      }
+      this.$indicator.close()
+    })
+  }
+
 },
 
   components: {

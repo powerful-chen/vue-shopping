@@ -7,9 +7,10 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './lib/mui/css/mui.css'
 import './lib/mui/css/icons-extra.css'
+import auth from './auth.js'
 
 
-
+Vue.use(auth)
 Vue.use(axios)
 Vue.use(MintUI)
 Vue.config.productionTip = false
