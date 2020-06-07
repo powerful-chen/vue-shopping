@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <div class="menu-left">
+      <div class="menu-left" ref="itemList">
         <ul>
           <li class="menu-item" v-for="(menu,index) in menus" :key="index" :class="{current: index === currentIndex}"
             @click="clickList(index)">
@@ -32,11 +32,22 @@
 
 
 <script>
+import BScroll from 'better-scroll'
 export default {
   data () {
     return {
       menus: [],
-      currentIndex: 0
+      currentIndex: 0,
+      rightLiTops: [],  // 右菜单每项的高度
+    }
+  },
+  watch: {
+    menus () {
+      // $nextTick用来在下次DOM更新循环结束之后执行延迟回调
+      this.$nextTick(() => {
+        this._initBScroll()      // 初始化better-scroll
+        this._initRightHeight() // 初始化右边菜单的高度
+      })
     }
   },
   created () {
@@ -51,7 +62,33 @@ export default {
   methods: {
     clickList (index) {
       this.currentIndex = index
+      // scrollTo(x, y, time, easing)
+      this.rightBscroll.scrollTo(0, -this.rightLiTops[index])
+    },
+    // 初始化better-scroll
+    _initBScroll () {
+      this.leftBscroll = new BScroll('.menu-left', {
+        click: true,
+        mouseWheel: true
+      })
+      this.rightBscroll = new BScroll('.menu-right', {
+        click: true,
+        mouseWheel: true
+      })
+    },
+    _initRightHeight () {
+      let itemArray = []
+      let top = 0
+      itemArray.push(top)
+      let allList = this.$refs.itemList.getElementsByClassName('cate')
+      // 将 allList 转换为普通数组进行遍历，记录每个元素的高度
+      Array.prototype.slice.call(allList).forEach(li => {
+        top += li.clientHeight
+        itemArray.push(top)
+      })
+      this.rightLiTops = itemArray
     }
+
   },
 }
 </script>
