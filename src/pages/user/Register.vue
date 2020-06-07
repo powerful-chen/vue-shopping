@@ -56,7 +56,7 @@ export default {
         this.$toast('邮箱不能为空')
         return
       }
-      //   window.console.log(this.regForm)
+      window.console.log(this.regForm)
       this.$indicator.open({
         text: '注册中'
       })
