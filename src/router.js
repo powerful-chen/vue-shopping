@@ -7,6 +7,8 @@ import Shopcart from './pages/Shopcart.vue'
 import User from './pages/User.vue'
 import Login from './pages/user/Login.vue'
 import Register from './pages/user/Register.vue'
+import GoodsList from './pages/goods/GoodsList.vue'
+import GoodsInfo from './pages/goods/GoodsInfo.vue'
 
 var router = new VueRouter({ // 创建路由实例对象router
   routes: [
@@ -17,17 +19,18 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/user', component: User, name: 'user', meta: { title: '我的' } },
     { path: '/user/login', component: Login, name: 'login', meta: { title: '登录' } },
     { path: '/user/register', component: Register, name: 'register', meta: { title: '注册' } },
+    { path: '/goodslist/:category_id', component: GoodsList, props: true, name: 'goods_list', meta: { title: '商品列表' } },
+    { path: '/goodsinfo/:id', component: GoodsInfo, props: true, name: 'goods_info', meta: { title: '商品信息' } },
     
-
   ],
   linkActiveClass: 'mui-active'
 
 })
-  router.beforeEach((to, from, next) => {
-    if(to.meta.title){
-        document.title=to.meta.title
-    }
-    next()
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
 })
 
 export default router     // 暴露路由对象属性

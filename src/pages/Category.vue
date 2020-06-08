@@ -16,10 +16,12 @@
             <ul class="cate-item">
               <li v-for="(item, index2) in menu.sub" :key="index2">
                 <a href="#" class="cate-item-wrapper">
-                  <div class="cate-item-img">
-                    <img :src="item.image" alt="">
-                  </div>
-                  <span>{{ item.name }}</span>
+                  <router-link class="cate-item-wrapper" :to="{name: 'goods_list', params: {category_id: item.id}}">
+                    <div class="cate-item-img">
+                      <img :src="item.image" alt="">
+                    </div>
+                    <span>{{ item.name }}</span>
+                  </router-link>
                 </a>
               </li>
             </ul>
