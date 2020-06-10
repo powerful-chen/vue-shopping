@@ -23,7 +23,7 @@
             </p>
             <p class="go-buy">
               <mt-button type="primary" size="small">立即购买</mt-button>
-              <mt-button type="danger" size="small">加入购物车</mt-button>
+              <mt-button type="danger" size="small" @click="addShopcart">加入购物车</mt-button>
             </p>
           </div>
           <div v-else>该商品暂时无货</div>
@@ -90,7 +90,14 @@ export default {
     },
     countChange (goodsinfo) {
       this.selectedCount = goodsinfo.count
-    }
+    },
+    addShopcart () {
+      this.$store.commit('shopcart/addCar', {
+        id: this.id,
+        count: this.selectedCount,
+        selected: true
+      })
+    },
 
   }
 }
