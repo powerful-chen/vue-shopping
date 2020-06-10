@@ -26,6 +26,19 @@
           </div>
         </div>
       </div>
+      <!-- 商品结算区域 -->
+      <div class="mui-card">
+        <div class="mui-card-content">
+          <div class="mui-card-content-inner balance">
+            <div class="left">
+              <p>总计不含运费</p>
+              <p>已勾选商品 <span class="red">{{ getSelectedCount }}</span> 件，总价 <span
+                  class="red">¥{{ getSelectedAmount }}</span></p>
+            </div>
+            <mt-button type="primary">去结算</mt-button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -44,7 +57,17 @@ export default {
   },
   computed: {
     ...mapState('shopcart', ['car']),
-    ...mapGetters('shopcart', ['getGoodsCount', 'getGoodsSelected'])
+    ...mapGetters('shopcart', ['getGoodsCount', 'getGoodsSelected', 'getSelectedCount', 'getSelectedGoods']),
+    getSelectedAmount () {
+      var goods = this.getSelectedGoods
+      var amount = 0
+      this.goodslist.forEach(item => {
+        if (goods[item.id]) {
+          amount += item.price * goods[item.id].count
+        }
+      })
+      return amount
+    }
   },
   created () {
     this.getGoodsList()
@@ -141,6 +164,16 @@ export default {
           line-height: 25px;
         }
       }
+    }
+  }
+  .balance {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .red {
+      color: red;
+      font-weight: bold;
+      font-size: 16px;
     }
   }
 }

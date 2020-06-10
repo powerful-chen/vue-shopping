@@ -8,6 +8,10 @@
         </div>
       </div>
     </div>
+    <!-- 购物车小球动画 -->
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div class="ball" v-show="ballFlag" ref="ball"></div>
+    </transition>
     <!-- 商品购买区域 -->
     <div class="mui-card">
       <div class="mui-card-header">{{ goodsinfo.name }}</div>
@@ -55,6 +59,7 @@ export default {
     return {
       goodsinfo: {},    // 获取到的商品信息
       selectedCount: 1,  // 保存商品数量，默认是1
+      ballFlag: false,   // 控制小球的显示和隐藏
     }
   },
   props: ['id'],
@@ -92,12 +97,34 @@ export default {
       this.selectedCount = goodsinfo.count
     },
     addShopcart () {
+      this.ballFlag = !this.ballFlag
       this.$store.commit('shopcart/addCar', {
         id: this.id,
         count: this.selectedCount,
         selected: true
       })
     },
+    // 小球动画-进入前
+    beforeEnter (el) {
+      el.style.transform = 'translate(0,0)'
+    },
+    // 小球动画-进入
+    enter (el, done) {
+      el.offsetWidth // 必须加上此行代码，否则没有动画效果
+      // 获取小球在页面中的位置
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      // 获取徽标在页面中的位置
+      const badgePosition = document.getElementById('badge').getBoundingClientRect()
+      const xDist = badgePosition.left - ballPosition.left
+      const yDist = badgePosition.top - ballPosition.top
+      el.style.transform = `translate(${xDist}px,${yDist}px)`;
+      el.style.transition = 'all .5s cubic-bezier(.4, -0.3, 1, .68)'
+      done()
+    },
+    // 小球动画-进入后
+    afterEnter () {
+      this.ballFlag = !this.ballFlag
+    }
 
   }
 }
@@ -143,6 +170,17 @@ export default {
         width: 100%;
       }
     }
+  }
+  .ball {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    background: red;
+    z-index: 99;
+    left: 132px;
+    top: 390px;
+    transform: translate(93px, 230px);
   }
 }
 </style>
