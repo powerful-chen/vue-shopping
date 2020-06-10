@@ -2,7 +2,7 @@
   <div class="shopcar-container">
     <div class="goods-list">
       <div class="mui-card">
-        <div class="mui-card-content" v-for="(item) in goodslist" :key="item.id">
+        <div class="mui-card-content" v-for="(item, i) in goodslist" :key="item.id">
           <div class="mui-card-content-inner flex">
             <!-- 复选框 -->
             <div class="mui-input-row mui-checkbox mui-left">
@@ -20,7 +20,7 @@
                 <numbox v-if="item.num" @count="countChange" :initcount="getGoodsCount[item.id]" :max="item.num"
                   :goodsid="item.id" size="min"></numbox>
                 <span v-else style="margin-right:20px;">该商品暂时无货</span>
-                <a href="#">删除</a>
+                <a href="#" @click.prevent="remove(item.id, i)">删除</a>
               </p>
             </div>
           </div>
@@ -77,7 +77,12 @@ export default {
     },
     selectedChange (id, val) {
       this.$store.commit('shopcart/updateGoodsSelected', { id: id, selected: val })
+    },
+    remove (id, index) {
+      this.goodslist.splice(index, 1)
+      this.$store.commit('shopcart/removeCar', id)
     }
+
 
 
   }

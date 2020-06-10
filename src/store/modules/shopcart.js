@@ -92,6 +92,15 @@ const mutations = {
             }
         })
         setItem('car', state.car)
+    },
+    removeCar (state, id) {
+        state.car.some((item, i) => {
+            if (item.id == id) {
+                state.car.splice(i, 1)
+                return true
+            }
+        })
+        setItem('car', state.car)
     }
 }
 
