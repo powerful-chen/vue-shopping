@@ -7,7 +7,8 @@
             <!-- 复选框 -->
             <div class="mui-input-row mui-checkbox mui-left">
               <label>&nbsp;</label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="getGoodsSelected[item.id]"
+                @change="selectedChange(item.id,getGoodsSelected[item.id])" :disabled="item.num == 0">
             </div>
             <!-- 中间商品图片 -->
             <img :src="item.image">
@@ -43,7 +44,7 @@ export default {
   },
   computed: {
     ...mapState('shopcart', ['car']),
-    ...mapGetters('shopcart', ['getGoodsCount'])
+    ...mapGetters('shopcart', ['getGoodsCount', 'getGoodsSelected'])
   },
   created () {
     this.getGoodsList()
@@ -63,12 +64,21 @@ export default {
         this.$indicator.close()
         if (res.data.code === 1) {
           this.goodslist = res.data.data
+          this.goodslist.forEach(item => {
+            if (item.num == 0) {
+              this.selectedChange(item.id, false)
+            }
+          })
         }
       })
     },
     countChange (goodsinfo) {
       this.$store.commit('shopcart/updateGoodsInfo', goodsinfo)
+    },
+    selectedChange (id, val) {
+      this.$store.commit('shopcart/updateGoodsSelected', { id: id, selected: val })
     }
+
 
   }
 

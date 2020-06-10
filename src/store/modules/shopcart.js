@@ -84,6 +84,14 @@ const mutations = {
             }
         })
         setItem('car', state.car)
+    },
+    updateGoodsSelected (state, info) {
+        state.car.some(item => {
+            if (item.id == info.id) {
+                item.selected = info.selected
+            }
+        })
+        setItem('car', state.car)
     }
 }
 
