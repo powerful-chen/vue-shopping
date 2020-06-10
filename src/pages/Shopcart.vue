@@ -16,6 +16,9 @@
               <h1>{{ item.name }}</h1>
               <p class="flex">
                 <span class="price">¥{{ item.price }}</span>
+                <numbox v-if="item.num" @count="countChange" :initcount="getGoodsCount[item.id]" :max="item.num"
+                  :goodsid="item.id" size="min"></numbox>
+                <span v-else style="margin-right:20px;">该商品暂时无货</span>
                 <a href="#">删除</a>
               </p>
             </div>
@@ -27,15 +30,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+import numbox from '../components/numbox.vue'
 export default {
   data () {
     return {
       goodslist: []
     }
   },
+  components: {
+    numbox
+  },
   computed: {
     ...mapState('shopcart', ['car']),
+    ...mapGetters('shopcart', ['getGoodsCount'])
   },
   created () {
     this.getGoodsList()
@@ -57,6 +65,9 @@ export default {
           this.goodslist = res.data.data
         }
       })
+    },
+    countChange (goodsinfo) {
+      this.$store.commit('shopcart/updateGoodsInfo', goodsinfo)
     }
 
   }

@@ -75,6 +75,15 @@ const mutations = {
             state.car.push(goodsinfo)
         }
         setItem('car', state.car)
+    },
+    updateGoodsInfo (state, goodsinfo) {
+        state.car.some(item => {
+            if (item.id == goodsinfo.id) {
+                item.count = parseInt(goodsinfo.count)
+                return true
+            }
+        })
+        setItem('car', state.car)
     }
 }
 
