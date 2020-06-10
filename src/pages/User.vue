@@ -23,10 +23,10 @@
         </div>
       </li>
       <li class="mui-table-view-cell mui-media">
-        <div class="mui-navigate-right">
+        <router-link :to="{ name: 'address' }" class="mui-navigate-right">
           <img class="mui-media-object mui-pull-left" src="../assets/images/avatar_default.png">
           <div class="mui-media-body">收货地址</div>
-        </div>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media">
         <div @click="logout" class="mui-navigate-right">

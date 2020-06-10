@@ -9,6 +9,9 @@ import Login from './pages/user/Login.vue'
 import Register from './pages/user/Register.vue'
 import GoodsList from './pages/goods/GoodsList.vue'
 import GoodsInfo from './pages/goods/GoodsInfo.vue'
+import Address from './pages/user/Address.vue'
+import AddressEdit from './pages/user/AddressEdit.vue'
+
 
 var router = new VueRouter({ // 创建路由实例对象router
   routes: [
@@ -21,7 +24,9 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/user/register', component: Register, name: 'register', meta: { title: '注册' } },
     { path: '/goodslist/:category_id', component: GoodsList, props: true, name: 'goods_list', meta: { title: '商品列表' } },
     { path: '/goodsinfo/:id', component: GoodsInfo, props: true, name: 'goods_info', meta: { title: '商品信息' } },
-    
+    { path: '/user/address', component: Address, name: 'address', meta: { title: '收货地址' } },
+    { path: '/user/address/add', component: AddressEdit, name: 'address_add', meta: { title: '新增收货地址' } },
+
   ],
   linkActiveClass: 'mui-active'
 
