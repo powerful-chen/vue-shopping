@@ -11,7 +11,7 @@ import GoodsList from './pages/goods/GoodsList.vue'
 import GoodsInfo from './pages/goods/GoodsInfo.vue'
 import Address from './pages/user/Address.vue'
 import AddressEdit from './pages/user/AddressEdit.vue'
-
+import OrderCreate from './pages/order/OrderCreate.vue'
 
 var router = new VueRouter({ // 创建路由实例对象router
   routes: [
@@ -27,7 +27,8 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/user/address', component: Address, name: 'address', meta: { title: '收货地址' } },
     { path: '/user/address/add', component: AddressEdit, name: 'address_add', meta: { title: '新增收货地址' } },
     { path: '/user/address/edit/:id', component: AddressEdit, props: true, name: 'address_edit', meta: { title: '编辑收货地址' } },
-
+    { path: '/order/create', component: OrderCreate, name: 'order_create', meta: { title: '下订单' } },
+    
     
   ],
   linkActiveClass: 'mui-active'

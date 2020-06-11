@@ -101,7 +101,17 @@ const mutations = {
             }
         })
         setItem('car', state.car)
+    },
+    setBuy (state) {
+        state.buy = []
+        state.car.some(item => {
+            if (item.selected) {
+                state.buy.push(item)
+            }
+        })
+        setItem('buy', state.buy)
     }
+
 }
 
 export default {

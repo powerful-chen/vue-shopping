@@ -35,7 +35,7 @@
               <p>已勾选商品 <span class="red">{{ getSelectedCount }}</span> 件，总价 <span
                   class="red">¥{{ getSelectedAmount }}</span></p>
             </div>
-            <mt-button type="primary">去结算</mt-button>
+            <mt-button type="primary" @click="createOrder">去结算</mt-button>
           </div>
         </div>
       </div>
@@ -104,10 +104,15 @@ export default {
     remove (id, index) {
       this.goodslist.splice(index, 1)
       this.$store.commit('shopcart/removeCar', id)
+    },
+    createOrder () {
+      if (this.goodslist.length === 0) {
+        this.$toast('您的购物车为空')
+        return
+      }
+      this.$store.commit('shopcart/setBuy')
+      this.$router.push({ name: 'order_create' })
     }
-
-
-
   }
 
 }
