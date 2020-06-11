@@ -1,5 +1,14 @@
 <template>
   <div class="shopcart-container">
+    <!-- 收货地址区域 -->
+    <div class="address-container">
+      <div class="mui-card">
+        <router-link :to="{name: 'address_select'}" replace>
+          <h3>{{ address.name }} {{ address.tel }}</h3>
+          <p>{{ address.area }} {{ address.detail }}</p>
+        </router-link>
+      </div>
+    </div>
     <!-- 商品列表 -->
     <div class="goods-list">
       <!-- 商品列表项区域 -->
@@ -64,7 +73,9 @@ export default {
     return {
       goodslist: [],
       amount: 0,
-      note: ''
+      note: '',
+      address: {},
+      addressId: 0
     }
   },
   computed: {
@@ -72,6 +83,10 @@ export default {
     ...mapGetters('shopcart', ['getBuy'])
   },
   created () {
+    if (this.$route.params.id) {
+      this.addressId = this.$route.params.id
+    }
+    this.getAddress()
     this.getGoodsList()
   },
   methods: {
@@ -95,6 +110,25 @@ export default {
             amount += item.count * item.price
           })
           this.amount = amount
+        }
+        window.console.log(res.data)
+      })
+    },
+    getAddress () {
+      var params = { id: this.addressId }
+      this.$http.get('address/def', { params: params }).then(res => {
+        if (res.data.code === 0) {
+          this.$toast(res.data.msg)
+        } else if (res.data.code === 1) {
+          if (res.data.data) {
+            this.address = res.data.data
+            this.addressId = res.data.data.id
+          } else {
+            this.$toast('请先添加收货地址')
+            this.$router.replace({ name: 'address_select' })
+          }
+        } else if (res.data.code === 2) {
+          this.$router.push({ name: 'login' })
         }
         window.console.log(res.data)
       })
@@ -144,6 +178,17 @@ export default {
                 color: red;
                 flex: 1;
               }
+            }
+          }
+        }
+        .address-container {
+          .mui-card {
+            margin: 0;
+            padding: 10px;
+            h3 {
+              color: #333;
+              font-size: 16px;
+              font-weight: bold;
             }
           }
         }

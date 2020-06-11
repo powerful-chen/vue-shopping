@@ -3,11 +3,11 @@
     <div>
       <div class="mui-card" v-for="item in addressList" :key="item.id">
         <ul class="selected">
-          <li class="title">
+          <li class="title" @click="select(item.id)">
             <strong>{{ item.name }}</strong>&nbsp;
             <strong>{{ item.tel }}</strong>
           </li>
-          <li>{{ item.area }} {{ item.detail }}</li>
+          <li @click="select(item.id)">{{ item.area }} {{ item.detail }}</li>
           <li>
             <router-link class="edit" :to="{name: 'address_edit', params: {id: item.id}}">编辑</router-link>
           </li>
@@ -44,9 +44,16 @@ export default {
         this.addressList = res.data.data
         window.console.log(res.data)
       })
+    },
+    select (id) {
+      if (this.$route.name !== 'address_select') {
+        return
+      }
+      this.$router.replace({ name: 'order_create', params: { id: id } })
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>
