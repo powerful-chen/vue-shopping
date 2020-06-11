@@ -16,6 +16,8 @@ import OrderList from './pages/order/OrderList.vue'
 import OrderShow from './pages/order/OrderShow.vue'
 import NewsList from './pages/news/NewsList.vue'
 import NewsInfo from './pages/news/NewsInfo.vue'
+import PhotoList from './pages/photo/PhotoList.vue'
+import PhotoInfo from './pages/photo/PhotoInfo.vue'
 
 var router = new VueRouter({ // 创建路由实例对象router
   routes: [
@@ -37,6 +39,8 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/order/show/:id', component: OrderShow, props: true, name: 'order_show', meta: { title: '查看订单' } },
     { path: '/news/list', component: NewsList, name: 'news_list', meta: { title: '新闻资讯列表' } },
     { path: '/news/show/:id', component: NewsInfo, props: true, name: 'news_show', meta: { title: '查看新闻资讯' } },
+    { path: '/photo/list', component: PhotoList, name: 'photo_list', meta: { title: '图片分享列表' } },
+    { path: '/photo/show/:id', component: PhotoInfo, props: true, name: 'photo_show', meta: { title: '查看图片' } }
 
   ],
   linkActiveClass: 'mui-active'
