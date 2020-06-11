@@ -14,6 +14,8 @@ import AddressEdit from './pages/user/AddressEdit.vue'
 import OrderCreate from './pages/order/OrderCreate.vue'
 import OrderList from './pages/order/OrderList.vue'
 import OrderShow from './pages/order/OrderShow.vue'
+import NewsList from './pages/news/NewsList.vue'
+import NewsInfo from './pages/news/NewsInfo.vue'
 
 var router = new VueRouter({ // 创建路由实例对象router
   routes: [
@@ -33,8 +35,9 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/user/address/select', component: Address, name: 'address_select', meta: { title: '选择收货地址' } },
     { path: '/order/list', component: OrderList, name: 'order_list', meta: { title: '我的订单' } },
     { path: '/order/show/:id', component: OrderShow, props: true, name: 'order_show', meta: { title: '查看订单' } },
-    
-    
+    { path: '/news/list', component: NewsList, name: 'news_list', meta: { title: '新闻资讯列表' } },
+    { path: '/news/show/:id', component: NewsInfo, props: true, name: 'news_show', meta: { title: '查看新闻资讯' } },
+
   ],
   linkActiveClass: 'mui-active'
 

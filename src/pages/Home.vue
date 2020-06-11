@@ -3,8 +3,10 @@
     <swiper :imgList="imgList"></swiper>
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <img src="../assets/images/menu1.png">
-        <div class="mui-media-body">新闻资讯</div>
+        <router-link :to="{ name: 'news_list' }" class="title">
+          <img src="../assets/images/menu1.png">
+          <div class="mui-media-body">新闻资讯</div>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
         <img src="../assets/images/menu2.png">
@@ -41,7 +43,7 @@
     height: 60px;
   }
 }
-.mui-table-view-cell > a.title{
+.mui-table-view-cell > a.title {
   display: inline;
 }
 .mui-grid-view.mui-grid-9 .mui-table-view-cell {
