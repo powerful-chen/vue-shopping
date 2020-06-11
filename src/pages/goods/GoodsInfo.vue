@@ -26,7 +26,7 @@
               <numbox @count="countChange" :max="goodsinfo.num" initcount="1" :goodsid="goodsinfo.id"></numbox>
             </p>
             <p class="go-buy">
-              <mt-button type="primary" size="small">立即购买</mt-button>
+              <mt-button type="primary" size="small" @click="buy">立即购买</mt-button>
               <mt-button type="danger" size="small" @click="addShopcart">加入购物车</mt-button>
             </p>
           </div>
@@ -124,6 +124,10 @@ export default {
     // 小球动画-进入后
     afterEnter () {
       this.ballFlag = !this.ballFlag
+    },
+    buy () {
+      this.$store.commit('shopcart/setBuy', { id: this.$props.id, count: this.selectedCount })
+      this.$router.push({ name: 'order_create' })
     }
 
   }

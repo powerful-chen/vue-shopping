@@ -6,7 +6,7 @@
         <span>
           <span v-if="order.is_pay">已支付</span><span v-else>未支付</span> |
           <span v-if="order.is_cancel">已取消</span>
-          <span v-else>取消订单</span>
+          <span v-else @click="cancel(order.id)">取消订单</span>
         </span>
       </div>
       <div @click="show(order.id)" class="mui-card-content">
@@ -58,7 +58,24 @@ export default {
     },
     show (id) {
       this.$router.push({ name: 'order_show', params: { id: id } });
+    },
+    cancel (id) {
+      this.$indicator.open({
+        text: '取消中'
+      })
+      this.$http.post('order/cancel', { id: id }).then(res => {
+        this.$indicator.close()
+        if (res.data.code === 0) {
+          this.$toast(res.data.msg)
+        } else if (res.data.code === 1) {
+          this.getOrderList()
+        } else if (res.data.code === 2) {
+          this.$router.push({ name: 'login' })
+        }
+        window.console.log(res.data)
+      })
     }
+
 
   }
 }
