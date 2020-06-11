@@ -12,6 +12,8 @@ import GoodsInfo from './pages/goods/GoodsInfo.vue'
 import Address from './pages/user/Address.vue'
 import AddressEdit from './pages/user/AddressEdit.vue'
 import OrderCreate from './pages/order/OrderCreate.vue'
+import OrderList from './pages/order/OrderList.vue'
+import OrderShow from './pages/order/OrderShow.vue'
 
 var router = new VueRouter({ // 创建路由实例对象router
   routes: [
@@ -29,6 +31,8 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/user/address/edit/:id', component: AddressEdit, props: true, name: 'address_edit', meta: { title: '编辑收货地址' } },
     { path: '/order/create', component: OrderCreate, name: 'order_create', meta: { title: '下订单' } },
     { path: '/user/address/select', component: Address, name: 'address_select', meta: { title: '选择收货地址' } },
+    { path: '/order/list', component: OrderList, name: 'order_list', meta: { title: '我的订单' } },
+    { path: '/order/show/:id', component: OrderShow, props: true, name: 'order_show', meta: { title: '查看订单' } },
     
     
   ],

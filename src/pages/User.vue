@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <ul class="mui-table-view mui-table-view-chevron">
+    <router-link :to="{ name: 'order_list' }" class="mui-table-view mui-table-view-chevron">
       <li class="mui-table-view-cell mui-media">
         <div class="mui-navigate-right">
           <img class="mui-media-object mui-pull-left" src="../assets/images/avatar_default.png">
@@ -34,7 +34,7 @@
           <div class="mui-media-body">退出登录</div>
         </div>
       </li>
-    </ul>
+    </router-link>
   </div>
   <!-- 未登录 -->
   <div v-else>
