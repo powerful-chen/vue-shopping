@@ -1,7 +1,6 @@
 <template>
   <div class="address-container">
     <div>
-      <div>测试默认地址表</div>
       <div class="mui-card" v-for="item in addressList" :key="item.id">
         <ul class="selected">
           <li class="title">
@@ -10,7 +9,7 @@
           </li>
           <li>{{ item.area }} {{ item.detail }}</li>
           <li>
-            <a class="edit">编辑</a>
+            <router-link class="edit" :to="{name: 'address_edit', params: {id: item.id}}">编辑</router-link>
           </li>
         </ul>
       </div>
@@ -42,7 +41,7 @@ export default {
       this.$http.get('address').then(res => {
         this.$indicator.close()
         this.showAdd = true
-        this.addressList=res.data.data
+        this.addressList = res.data.data
         window.console.log(res.data)
       })
     }

@@ -24,6 +24,7 @@
     </div>
     <div class="mui-button-row">
       <button @click="save" type="button" class="mui-btn mui-btn-primary mui-btn-block">确认</button>
+      <button v-show="id" @click="del" type="button" class="mui-btn mui-btn-danger mui-btn-block">删除</button>
     </div>
   </form>
 </template>
@@ -47,11 +48,36 @@ export default {
       }
     }
   },
+  props: ['id'],
+  created () {
+    this.getAddress()
+  },
   methods: {
+    getAddress () {
+      if (!this.id) {
+        return
+      }
+      this.$indicator.open({
+        text: '加载中'
+      })
+      var params = { id: this.id }
+      this.$http.get('address/edit', { params: params }).then(res => {
+        this.$indicator.close()
+        if (res.data.code === 0) {
+          this.$toast(res.data.msg)
+        } else if (res.data.code === 1) {
+          this.form = res.data.data
+        } else if (res.data.code === 2) {
+          this.$router.push({ name: 'login' })
+        }
+        window.console.log(res.data)
+      })
+    },
     save () {
       this.$indicator.open({
         text: '提交中'
       })
+      this.form.id = this.id
       this.$http.post('address/save', this.form).then(res => {
         this.$indicator.close()
         if (res.data.code === 0) {
@@ -78,6 +104,25 @@ export default {
       this.form.area = this.newInfo.province + '-' + this.newInfo.city + '-' + this.newInfo.area
       this.show = false
     },
+    del () {
+      this.$indicator.open({
+        text: '删除中'
+      })
+      this.form.id = this.id
+      this.$http.post('address/del', this.form).then(res => {
+        this.$indicator.close()
+        if (res.data.code === 0) {
+          this.$toast(res.data.msg)
+        } else if (res.data.code === 1) {
+          this.$toast(res.data.msg)
+          this.$router.go(-1)
+        } else if (res.data.code === 2) {
+          this.$router.push({ name: 'login' })
+        }
+        window.console.log(res.data)
+      })
+    }
+
   },
   components: {
     'v-distpicker': VDistpicker

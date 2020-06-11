@@ -26,7 +26,9 @@ var router = new VueRouter({ // 创建路由实例对象router
     { path: '/goodsinfo/:id', component: GoodsInfo, props: true, name: 'goods_info', meta: { title: '商品信息' } },
     { path: '/user/address', component: Address, name: 'address', meta: { title: '收货地址' } },
     { path: '/user/address/add', component: AddressEdit, name: 'address_add', meta: { title: '新增收货地址' } },
+    { path: '/user/address/edit/:id', component: AddressEdit, props: true, name: 'address_edit', meta: { title: '编辑收货地址' } },
 
+    
   ],
   linkActiveClass: 'mui-active'
 
